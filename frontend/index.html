@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Clinical Triage & Risk Predictor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Health Status & Clinical Triage Predictor</h1>
+      <p>Continuous vitals risk stratification and specialty routing</p>
+    </header>
+
+    <form id="triageForm" class="card">
+      <h2>1. Vital Signs</h2>
+      <div class="grid">
+        <div class="form-group">
+          <label for="heart_rate">Heart Rate (BPM)</label>
+          <input type="number" id="heart_rate" value="78" required>
+        </div>
+        <div class="form-group">
+          <label for="spo2">Oxygen Saturation (SpO2 %)</label>
+          <input type="number" id="spo2" value="97" min="50" max="100" required>
+        </div>
+        <div class="form-group">
+          <label for="systolic">Systolic BP (mmHg)</label>
+          <input type="number" id="systolic" value="120" required>
+        </div>
+        <div class="form-group">
+          <label for="diastolic">Diastolic BP (mmHg)</label>
+          <input type="number" id="diastolic" value="80" required>
+        </div>
+        <div class="form-group">
+          <label for="respiratory">Respiratory Rate (/min)</label>
+          <input type="number" id="respiratory" value="16" required>
+        </div>
+        <div class="form-group">
+          <label for="temp">Body Temp (°C)</label>
+          <input type="number" step="0.1" id="temp" value="36.8" required>
+        </div>
+      </div>
+
+      <h2>2. Metabolic Profile</h2>
+      <div class="grid">
+        <div class="form-group">
+          <label for="age">Age (Years)</label>
+          <input type="number" id="age" value="45" required>
+        </div>
+        <div class="form-group">
+          <label for="glucose">Blood Glucose (mg/dL)</label>
+          <input type="number" id="glucose" value="110" required>
+        </div>
+        <div class="form-group">
+          <label for="bmi">BMI</label>
+          <input type="number" step="0.1" id="bmi" value="26.5" required>
+        </div>
+      </div>
+
+      <h2>3. Presenting Symptoms</h2>
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="sym_chest_pain"> Chest Pain or Heavy Pressure</label>
+        <label><input type="checkbox" id="sym_breathless"> Shortness of Breath (Dyspnea)</label>
+        <label><input type="checkbox" id="sym_high_thirst"> Extreme Thirst & Frequent Urination</label>
+      </div>
+
+      <button type="submit" id="submitBtn">Assess Health Risk</button>
+    </form>
+
+    <div id="resultsCard" class="card result-card" style="display: none;">
+      <h2>Clinical Evaluation Result</h2>
+      <div class="result-row">
+        <span>Assessed Risk Level:</span>
+        <span id="riskBadge" class="badge">--</span>
+      </div>
+      <div class="dept-box">
+        <div class="dept-title">Recommended Medical Department:</div>
+        <div id="deptName" class="dept-name">--</div>
+      </div>
+      <div class="metrics" id="metricsDisplay"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

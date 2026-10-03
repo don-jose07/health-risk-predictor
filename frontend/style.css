@@ -1,0 +1,46 @@
+:root {
+  --bg: #0b0f19;
+  --card: #151e32;
+  --accent: #2563eb;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #22304d;
+  --low: #10b981;
+  --med: #f59e0b;
+  --high: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+body { background: var(--bg); color: var(--text); padding: 2rem 1rem; display: flex; justify-content: center; min-height: 100vh; }
+.container { width: 100%; max-width: 800px; }
+header { text-align: center; margin-bottom: 2rem; }
+header h1 { font-size: 1.8rem; margin-bottom: 0.4rem; }
+header p { color: var(--muted); font-size: 0.95rem; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; margin-bottom: 1.5rem; }
+h2 { font-size: 1.1rem; color: #cbd5e1; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+label { font-size: 0.85rem; color: var(--muted); }
+input[type="number"] { background: #0b0f19; border: 1px solid var(--border); color: #fff; padding: 0.6rem; border-radius: 6px; font-size: 0.95rem; }
+input[type="number"]:focus { outline: none; border-color: var(--accent); }
+
+.checkbox-group { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+.checkbox-group label { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.95rem; }
+.checkbox-group input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+button { width: 100%; background: var(--accent); color: #fff; border: none; padding: 0.85rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+button:hover { opacity: 0.9; }
+
+.result-card { border-left: 5px solid var(--accent); }
+.result-row { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+.badge { padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; text-transform: uppercase; font-size: 0.85rem; }
+.badge-Low { background: rgba(16, 185, 129, 0.2); color: var(--low); border: 1px solid var(--low); }
+.badge-Medium { background: rgba(245, 158, 11, 0.2); color: var(--med); border: 1px solid var(--med); }
+.badge-High { background: rgba(239, 68, 68, 0.2); color: var(--high); border: 1px solid var(--high); }
+
+.dept-box { margin-top: 1.25rem; background: #0b0f19; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+.dept-title { font-size: 0.85rem; color: var(--muted); }
+.dept-name { font-size: 1.3rem; font-weight: 700; color: #38bdf8; margin-top: 0.25rem; }
+.metrics { margin-top: 1rem; font-size: 0.85rem; color: var(--muted); }
