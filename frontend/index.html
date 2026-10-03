@@ -3,35 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Clinical Triage & Risk Stratification</title>
+  <title>Clinical Triage & Health Status Predictor</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Comprehensive Health Status Predictor</h1>
-      <p>Continuous vitals risk evaluation with clinical imputation for unknown fields and multi-symptom triage.</p>
+      <div class="badge-header">
+        <span>⚡ Clinical Decision Support</span>
+      </div>
+      <h1>Health Status & Triage Predictor</h1>
+      <p>Assess multi-organ risk and receive department visit recommendations based on physiological vitals and symptoms.</p>
     </header>
 
     <form id="triageForm" class="card">
+      <!-- 1. Vitals Section -->
       <div class="section-header">
-        <h2>1. Vital Signs</h2>
-        <span class="hint">Check "NIL" if you do not know the reading</span>
+        <h2><span>🩺</span> 1. Physiological Vitals</h2>
+        <span class="hint">Toggle NIL if measurement is unavailable</span>
       </div>
 
       <div class="grid">
         <div class="form-group">
           <div class="label-row">
             <label for="heart_rate">Heart Rate (BPM)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="heart_rate"> NIL</label>
+            <label class="nil-label" id="label_heart_rate">
+              <input type="checkbox" class="nil-toggle" data-target="heart_rate"> NIL
+            </label>
           </div>
-          <input type="number" id="heart_rate" value="78" placeholder="e.g. 72">
+          <input type="number" id="heart_rate" value="78" placeholder="e.g. 75">
         </div>
 
         <div class="form-group">
           <div class="label-row">
             <label for="spo2">Oxygen (SpO2 %)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="spo2"> NIL</label>
+            <label class="nil-label" id="label_spo2">
+              <input type="checkbox" class="nil-toggle" data-target="spo2"> NIL
+            </label>
           </div>
           <input type="number" id="spo2" value="97" min="40" max="100" placeholder="e.g. 98">
         </div>
@@ -39,7 +50,9 @@
         <div class="form-group">
           <div class="label-row">
             <label for="systolic">Systolic BP (mmHg)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="systolic"> NIL</label>
+            <label class="nil-label" id="label_systolic">
+              <input type="checkbox" class="nil-toggle" data-target="systolic"> NIL
+            </label>
           </div>
           <input type="number" id="systolic" value="120" placeholder="e.g. 120">
         </div>
@@ -47,7 +60,9 @@
         <div class="form-group">
           <div class="label-row">
             <label for="diastolic">Diastolic BP (mmHg)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="diastolic"> NIL</label>
+            <label class="nil-label" id="label_diastolic">
+              <input type="checkbox" class="nil-toggle" data-target="diastolic"> NIL
+            </label>
           </div>
           <input type="number" id="diastolic" value="80" placeholder="e.g. 80">
         </div>
@@ -55,7 +70,9 @@
         <div class="form-group">
           <div class="label-row">
             <label for="respiratory">Respiratory Rate (/min)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="respiratory"> NIL</label>
+            <label class="nil-label" id="label_respiratory">
+              <input type="checkbox" class="nil-toggle" data-target="respiratory"> NIL
+            </label>
           </div>
           <input type="number" id="respiratory" value="16" placeholder="e.g. 16">
         </div>
@@ -63,15 +80,19 @@
         <div class="form-group">
           <div class="label-row">
             <label for="temp">Body Temp (°C)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="temp"> NIL</label>
+            <label class="nil-label" id="label_temp">
+              <input type="checkbox" class="nil-toggle" data-target="temp"> NIL
+            </label>
           </div>
           <input type="number" step="0.1" id="temp" value="36.8" placeholder="e.g. 37.0">
         </div>
       </div>
 
+      <!-- 2. Metabolic & Profile -->
       <div class="section-header">
-        <h2>2. Metabolic & Profile Indicators</h2>
+        <h2><span>🧬</span> 2. Profile & Biomarkers</h2>
       </div>
+
       <div class="grid">
         <div class="form-group">
           <div class="label-row">
@@ -83,7 +104,9 @@
         <div class="form-group">
           <div class="label-row">
             <label for="glucose">Blood Glucose (mg/dL)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="glucose"> NIL</label>
+            <label class="nil-label" id="label_glucose">
+              <input type="checkbox" class="nil-toggle" data-target="glucose"> NIL
+            </label>
           </div>
           <input type="number" id="glucose" value="110" placeholder="e.g. 100">
         </div>
@@ -91,37 +114,78 @@
         <div class="form-group">
           <div class="label-row">
             <label for="bmi">Body Mass Index (BMI)</label>
-            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="bmi"> NIL</label>
+            <label class="nil-label" id="label_bmi">
+              <input type="checkbox" class="nil-toggle" data-target="bmi"> NIL
+            </label>
           </div>
-          <input type="number" step="0.1" id="bmi" value="26.5" placeholder="e.g. 24.0">
+          <input type="number" step="0.1" id="bmi" value="26.5" placeholder="e.g. 24.5">
         </div>
       </div>
 
+      <!-- 3. Symptoms Selector -->
       <div class="section-header">
-        <h2>3. Search & Select Symptoms</h2>
-        <span class="hint">Type to search across 30+ emergency and general symptoms</span>
+        <h2><span>🔍</span> 3. Symptoms & Patient Complaints</h2>
+        <span class="hint">Search or pick frequent indicators</span>
       </div>
 
+      <!-- Quick Add Pills -->
+      <div class="quick-chips-wrapper">
+        <div class="chips-title">Frequent Presentations:</div>
+        <div class="quick-chips" id="quickChipsContainer"></div>
+      </div>
+
+      <!-- Searchable Multi-Select -->
       <div class="symptom-search-container">
         <div class="tags-container" id="selectedTags"></div>
-        <input type="text" id="symptomSearchInput" placeholder="Search symptom (e.g. Chest pain, Wheezing, Thirst, Dizziness)..." autocomplete="off">
+        <input type="text" id="symptomSearchInput" placeholder="Search other symptoms (e.g. Chest pain, Wheezing, Thirst, Dizziness)..." autocomplete="off">
         <div class="dropdown-list" id="symptomsDropdown"></div>
       </div>
 
-      <button type="submit" id="submitBtn">Assess Health Risk & Department</button>
+      <button type="submit" id="submitBtn" class="submit-btn">Run Clinical Risk Assessment</button>
     </form>
 
+    <!-- Results Section -->
     <div id="resultsCard" class="card result-card" style="display: none;">
-      <h2>Clinical Evaluation Result</h2>
-      <div class="result-row">
-        <span>Assessed Risk Level:</span>
-        <span id="riskBadge" class="badge">--</span>
+      <div class="report-header">
+        <div class="report-title-group">
+          <h3>Triage Assessment Report</h3>
+          <p id="evaluationTimestamp">Computed just now</p>
+        </div>
+        <div id="riskBadge" class="status-badge status-Low">Low Risk</div>
       </div>
-      <div class="dept-box">
-        <div class="dept-title">Recommended Medical Department:</div>
-        <div id="deptName" class="dept-name">--</div>
+
+      <!-- Department Recommendation Box -->
+      <div class="routing-box">
+        <div class="routing-icon" id="deptIcon">🏥</div>
+        <div class="routing-info">
+          <h4>Recommended Consultation Department</h4>
+          <div id="deptName" class="dept-name">General Internal Medicine</div>
+        </div>
       </div>
-      <div class="metrics" id="metricsDisplay"></div>
+
+      <!-- Clinical Metrics Summary -->
+      <div class="metrics-grid">
+        <div class="metric-pill">
+          <span class="label">Oxygen Saturation</span>
+          <span class="value" id="val_spo2">--</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Blood Pressure</span>
+          <span class="value" id="val_bp">--</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Mean Arterial Pres.</span>
+          <span class="value" id="val_map">--</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Glucose</span>
+          <span class="value" id="val_glucose">--</span>
+        </div>
+        <div class="metric-pill">
+          <span class="label">Symptoms Analyzed</span>
+          <span class="value" id="val_symptoms_count">0</span>
+        </div>
+      </div>
     </div>
   </div>
 
