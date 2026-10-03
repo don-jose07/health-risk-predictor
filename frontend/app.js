@@ -6,7 +6,7 @@ const metricsDisplay = document.getElementById('metricsDisplay');
 const submitBtn = document.getElementById('submitBtn');
 
 // Leave empty initially; we will paste the Render URL here in Step 7
-const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = 'https://health-risk-predictor-gyf6.onrender.com';
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
