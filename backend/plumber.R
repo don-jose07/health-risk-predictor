@@ -1,4 +1,4 @@
-library(plumber)
+﻿library(plumber)
 
 #* Enable CORS
 #* @filter cors
@@ -87,7 +87,6 @@ function() {
 function(req) {
   data <- jsonlite::fromJSON(req$postBody)
   
-  # Impute any unknown / NIL vitals using clinical baselines
   v <- list(
     Heart_Rate        = safe_num(data$Heart_Rate, 75),
     Oxygen_Saturation = safe_num(data$Oxygen_Saturation, 98),
@@ -103,14 +102,11 @@ function(req) {
   symptoms <- if (is.null(data$Symptoms)) character(0) else as.character(data$Symptoms)
   has_sym <- function(keys) any(keys %in% symptoms)
 
-  # Derived hemodynamics
   v$Pulse_Pressure <- v$Systolic_BP - v$Diastolic_BP
   v$MAP            <- v$Diastolic_BP + (v$Pulse_Pressure / 3)
 
-  # Weighted clinical score
   score <- 0
   
-  # Vitals risk additions
   if (v$Oxygen_Saturation < 90) score <- score + 4 else if (v$Oxygen_Saturation < 94) score <- score + 2
   if (v$Heart_Rate > 125 || v$Heart_Rate < 48) score <- score + 2 else if (v$Heart_Rate > 100 || v$Heart_Rate < 55) score <- score + 1
   if (v$Respiratory_Rate > 24 || v$Respiratory_Rate < 9) score <- score + 3 else if (v$Respiratory_Rate > 20 || v$Respiratory_Rate < 12) score <- score + 1
@@ -119,22 +115,18 @@ function(req) {
   if (v$Glucose >= 200) score <- score + 3 else if (v$Glucose >= 140) score <- score + 1
   if (v$BMI >= 35) score <- score + 1
 
-  # Red-flag symptoms (critical weight)
   if (has_sym(c("chest_pain", "severe_dyspnea", "loss_of_consciousness", "seizures", "cyanosis", "speech_difficulty"))) {
     score <- score + 5
   }
 
-  # Moderate systemic symptoms
   mod_syms <- c("palpitations", "wheezing", "severe_headache", "blurred_vision", "confusion_altered_mental",
                 "severe_abdominal_pain", "excessive_thirst", "frequent_urination", "left_arm_pain", "edema_legs", "jaundice")
   score <- score + (sum(mod_syms %in% symptoms) * 2)
 
-  # Mild outpatient symptoms
   mild_syms <- c("dizziness_vertigo", "nausea_vomiting", "high_fever", "chills_rigors", "profound_fatigue",
                  "cold_sweats", "persistent_cough", "sore_throat", "diarrhea", "muscle_joint_aches", "loss_of_appetite")
   score <- score + (sum(mild_syms %in% symptoms) * 1)
 
-  # Final risk categorization
   risk <- if (score <= 3) "Low" else if (score <= 7) "Medium" else "High"
   dept <- recommend_department(v, symptoms, risk)
 

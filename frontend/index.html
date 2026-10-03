@@ -1,99 +1,114 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comprehensive Clinical Health & Triage Predictor</title>
+  <title>Smart Clinical Triage & Risk Stratification</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Comprehensive Health Status & Triage Predictor</h1>
-      <p>Multi-factor risk assessment combining physiological vitals, metabolic markers, and presenting symptoms.</p>
+      <h1>Comprehensive Health Status Predictor</h1>
+      <p>Continuous vitals risk evaluation with clinical imputation for unknown fields and multi-symptom triage.</p>
     </header>
 
     <form id="triageForm" class="card">
-      <h2>1. Vital Signs</h2>
+      <div class="section-header">
+        <h2>1. Vital Signs</h2>
+        <span class="hint">Check "NIL" if you do not know the reading</span>
+      </div>
+
       <div class="grid">
         <div class="form-group">
-          <label for="heart_rate">Heart Rate (BPM)</label>
-          <input type="number" id="heart_rate" value="78" required>
+          <div class="label-row">
+            <label for="heart_rate">Heart Rate (BPM)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="heart_rate"> NIL</label>
+          </div>
+          <input type="number" id="heart_rate" value="78" placeholder="e.g. 72">
         </div>
+
         <div class="form-group">
-          <label for="spo2">Oxygen Saturation (SpO2 %)</label>
-          <input type="number" id="spo2" value="97" min="40" max="100" required>
+          <div class="label-row">
+            <label for="spo2">Oxygen (SpO2 %)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="spo2"> NIL</label>
+          </div>
+          <input type="number" id="spo2" value="97" min="40" max="100" placeholder="e.g. 98">
         </div>
+
         <div class="form-group">
-          <label for="systolic">Systolic BP (mmHg)</label>
-          <input type="number" id="systolic" value="120" required>
+          <div class="label-row">
+            <label for="systolic">Systolic BP (mmHg)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="systolic"> NIL</label>
+          </div>
+          <input type="number" id="systolic" value="120" placeholder="e.g. 120">
         </div>
+
         <div class="form-group">
-          <label for="diastolic">Diastolic BP (mmHg)</label>
-          <input type="number" id="diastolic" value="80" required>
+          <div class="label-row">
+            <label for="diastolic">Diastolic BP (mmHg)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="diastolic"> NIL</label>
+          </div>
+          <input type="number" id="diastolic" value="80" placeholder="e.g. 80">
         </div>
+
         <div class="form-group">
-          <label for="respiratory">Respiratory Rate (/min)</label>
-          <input type="number" id="respiratory" value="16" required>
+          <div class="label-row">
+            <label for="respiratory">Respiratory Rate (/min)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="respiratory"> NIL</label>
+          </div>
+          <input type="number" id="respiratory" value="16" placeholder="e.g. 16">
         </div>
+
         <div class="form-group">
-          <label for="temp">Body Temp (°C)</label>
-          <input type="number" step="0.1" id="temp" value="36.8" required>
+          <div class="label-row">
+            <label for="temp">Body Temp (°C)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="temp"> NIL</label>
+          </div>
+          <input type="number" step="0.1" id="temp" value="36.8" placeholder="e.g. 37.0">
         </div>
       </div>
 
-      <h2>2. Metabolic & Profile Indicators</h2>
+      <div class="section-header">
+        <h2>2. Metabolic & Profile Indicators</h2>
+      </div>
       <div class="grid">
         <div class="form-group">
-          <label for="age">Age (Years)</label>
+          <div class="label-row">
+            <label for="age">Age (Years)</label>
+          </div>
           <input type="number" id="age" value="45" required>
         </div>
+
         <div class="form-group">
-          <label for="glucose">Blood Glucose (mg/dL)</label>
-          <input type="number" id="glucose" value="110" required>
+          <div class="label-row">
+            <label for="glucose">Blood Glucose (mg/dL)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="glucose"> NIL</label>
+          </div>
+          <input type="number" id="glucose" value="110" placeholder="e.g. 100">
         </div>
+
         <div class="form-group">
-          <label for="bmi">Body Mass Index (BMI)</label>
-          <input type="number" step="0.1" id="bmi" value="26.5" required>
+          <div class="label-row">
+            <label for="bmi">Body Mass Index (BMI)</label>
+            <label class="nil-label"><input type="checkbox" class="nil-toggle" data-target="bmi"> NIL</label>
+          </div>
+          <input type="number" step="0.1" id="bmi" value="26.5" placeholder="e.g. 24.0">
         </div>
       </div>
 
-      <h2>3. Presenting Symptoms Checklist</h2>
-      
-      <p class="symptom-category">Cardiovascular & Respiratory</p>
-      <div class="checkbox-grid">
-        <label><input type="checkbox" id="sym_chest_pain"> Chest Pain / Pressure</label>
-        <label><input type="checkbox" id="sym_breathless"> Shortness of Breath (Dyspnea)</label>
-        <label><input type="checkbox" id="sym_palpitations"> Heart Palpitations / Racing Heart</label>
-        <label><input type="checkbox" id="sym_cough"> Persistent Cough</label>
-        <label><input type="checkbox" id="sym_wheezing"> Wheezing / Stridor</label>
+      <div class="section-header">
+        <h2>3. Search & Select Symptoms</h2>
+        <span class="hint">Type to search across 30+ emergency and general symptoms</span>
       </div>
 
-      <p class="symptom-category">Metabolic & Endocrine</p>
-      <div class="checkbox-grid">
-        <label><input type="checkbox" id="sym_high_thirst"> Polydipsia (Extreme Thirst)</label>
-        <label><input type="checkbox" id="sym_frequent_urination"> Polyuria (Frequent Urination)</label>
+      <div class="symptom-search-container">
+        <div class="tags-container" id="selectedTags"></div>
+        <input type="text" id="symptomSearchInput" placeholder="Search symptom (e.g. Chest pain, Wheezing, Thirst, Dizziness)..." autocomplete="off">
+        <div class="dropdown-list" id="symptomsDropdown"></div>
       </div>
 
-      <p class="symptom-category">Neurological & Cognitive</p>
-      <div class="checkbox-grid">
-        <label><input type="checkbox" id="sym_severe_headache"> Severe Headache / Migraine</label>
-        <label><input type="checkbox" id="sym_dizziness"> Dizziness / Vertigo / Lightheadedness</label>
-        <label><input type="checkbox" id="sym_blurred_vision"> Blurred or Impaired Vision</label>
-        <label><input type="checkbox" id="sym_confusion"> Acute Confusion / Disorientation</label>
-      </div>
-
-      <p class="symptom-category">Systemic, Gastrointestinal & Infection</p>
-      <div class="checkbox-grid">
-        <label><input type="checkbox" id="sym_nausea"> Nausea / Vomiting</label>
-        <label><input type="checkbox" id="sym_abdominal_pain"> Severe Abdominal Pain</label>
-        <label><input type="checkbox" id="sym_fever"> High Fever</label>
-        <label><input type="checkbox" id="sym_chills"> Chills / Rigors</label>
-        <label><input type="checkbox" id="sym_fatigue"> Profound Fatigue / Weakness</label>
-        <label><input type="checkbox" id="sym_sweating"> Cold Sweats / Diaphoresis</label>
-      </div>
-
-      <button type="submit" id="submitBtn">Assess Health Risk & Recommend Department</button>
+      <button type="submit" id="submitBtn">Assess Health Risk & Department</button>
     </form>
 
     <div id="resultsCard" class="card result-card" style="display: none;">
